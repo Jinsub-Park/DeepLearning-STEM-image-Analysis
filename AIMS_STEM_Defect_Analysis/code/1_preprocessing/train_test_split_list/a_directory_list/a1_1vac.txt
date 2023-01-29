@@ -1,0 +1,5 @@
+Training directories are: 
+37deg_0 30deg_0 12deg_0 20deg_0 0deg_0 15deg_1 30deg_1 20deg_1 45deg_0 45deg_1 35deg_0 15deg_0 8deg_0 35deg_1 8deg_1
+
+Testing directories are: 
+10deg_1 37deg_1 0deg_1 10deg_0 12deg_1

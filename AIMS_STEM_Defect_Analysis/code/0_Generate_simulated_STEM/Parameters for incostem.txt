@@ -1,0 +1,43 @@
+<Material Information> (for MoS2)
+1. Material Name: MoS2
+2. Pixel size of the image in angstroms (How large is the atom in pixels): 0.2077A/px
+3. Desired image size: Need to consider how many convolutional blocks you will have;
+with each convolution the image size will shrink even with padding, and the image size needs
+to be divisible without remainders at every step. For example, if the initial image size is 512px and
+4 convolutions are applied, 
+512px -> 256px -> 128px -> 64px (OK)
+But, if the initial image size is 450px and 4 convolutions are applied,
+450px -> 225px -> (Regarding the ResUNet implementation from the paper, when the model is 
+constructed, one operation will output 112px, and the other 113px;
+this mismatch will cause problems) (Not Ok)
+4 & 5. Metal & Chalcogen site atom number: refer to the periodic table of elements
+6. Lattice constant a of your sample: MoS2's a value for this sample = 3.16A
+For the remainder of the inputs (such as substitution/vacancy on metal site, etc.), for this MoS2
+there are only two types of defects: (1) single vacancy on chalcogen site (2) double vacancy on chalcogen
+site. The concentrations are up to you, but make sure that a significant amount of images in the final
+training/validation set contain enough vacancies for the model to learn (especially for double vacancies). 0.05 is a good
+place to start for both. Feel free to play around with these numbers; if after cropping and rotating the
+images, many of the augmented images have little to no defects, you can filter them out with the
+python code in folder 0, post_process_stem_images.py.
+
+
+<Annular Dark Field STEM parameters>
+1. Voltage: 80kV (typical value when imaging many TMDCs with STEM. For many TMDCs the material will start to
+degrade at higher voltages. There are studies that use high beams (200kV, etc) on purpose to see how the material degrades
+and investigate other physical phenomena that happen at the atomic scale as the TMDC atoms interact with the high energy electrons)
+2. Mean of Cs3: -0.013mm
+3. Mean OF Cs5: 0mm
+4. df (defocus): 0
+5. Input aperture: 25 mrad
+6. Minimum ADF angle: 50-55 mrad (We do not know the exact input aperture used when taking the
+images, but this range produces images with Z-contrasts that roughly match the actual images. One way to create variations in the training
+set is to vary the minimum ADF angle to produce slightly differing Z-contrast ratios between the atoms & vacancies.)
+7. Maximum ADF angle: 160 mrad (This value is fixed)
+8. Mean of source size: (size of the beam) 0.77nm
+9. Mean of defocus spread: 0
+10. Mean of probe current: 23-30pA 
+11. Dwell time: 8us or 16us (Another way to create variations in the training set at the simulation stage)
+
+
+ 
+
